@@ -1,7 +1,7 @@
 # NeuroDetect Frontend Test Suite
 
 Automated frontend tests for the NeuroDetect React application using
-**Selenium 4**, **TestNG 7**, and **Cucumber 7** with the Page Object Model.
+**Selenium 4** and **TestNG 7** with the Page Object Model.
 
 ---
 
@@ -87,41 +87,7 @@ The app should be accessible at **http://localhost:5173**
 
 ---
 
-## Step 2 — Fill in the Locators
-
-**This is the only manual step required before running the tests.**
-
-Every Page Object file in `src/test/java/com/neurodetect/pages/` has locators
-set to `null` with a `// TODO:` comment. You need to fill these in by inspecting
-the live app in Chrome DevTools.
-
-**How to find a locator:**
-1. Open http://localhost:5173 in Chrome
-2. Right-click the element you want → **Inspect**
-3. In DevTools, right-click the highlighted HTML → **Copy** → choose one of:
-   - **Copy selector** → use as `By.cssSelector("...")`
-   - **Copy XPath**   → use as `By.xpath("...")`
-
-**Example — before:**
-```java
-private final By navbar = null; // TODO: e.g. By.cssSelector("nav.navbar")
-```
-
-**Example — after:**
-```java
-private final By navbar = By.cssSelector("nav.navbar");
-```
-
-**Tips for good locators:**
-- Prefer `By.cssSelector` over `By.xpath` — faster and more readable
-- Use class names from the CSS files (e.g. `.navbar`, `.patient-section`, `.drop-zone`)
-- Avoid locators based on text content for structural elements — use class/id
-- For links, `By.linkText("Predict")` or `By.cssSelector("a[href='/analyze']")` both work
-- For the hidden file input: `By.cssSelector("input[type='file']")`
-
----
-
-## Step 3 — Run the Tests
+## Step 2 — Run the Tests
 
 ### Run the full suite
 ```bash
@@ -228,18 +194,6 @@ Open the HTML files directly in your browser.
 - Form submission shows success state
 - "Send another message" resets the form
 
-### BDD Cucumber Tests (features)
-- `navigation.feature` — 12 scenarios
-- `dashboard.feature` — 16 scenarios
-- `predict_page.feature` — 14 scenarios
-- `supported_disorders.feature` — 9 scenarios
-- `team_page.feature` — 7 scenarios
-- `contact_form.feature` — 6 scenarios
-
-**Total: ~142 test cases across TestNG + Cucumber**
-
----
-
 ## Troubleshooting
 
 **"Element not found" / NoSuchElementException**
@@ -256,7 +210,3 @@ mvn test -Dwdm.chromeDriverVersion=LATEST
 
 **Tests pass but nothing happens visually**
 → You may be running in headless mode. Set `-Dheadless=false` to see the browser.
-
-**Cucumber steps not found (Undefined step)**
-→ Check the `glue` path in `CucumberTestRunner.java` matches your package:
-`glue = "com.neurodetect.stepdefinitions"`
